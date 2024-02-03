@@ -4,7 +4,7 @@ import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-import {
+import {0x27b7393F51bA51449b423C046d25E0C392332FB3
     SafeERC20
 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
@@ -29,7 +29,7 @@ contract CALM721 is ERC721, ICALMNFT {
         string version;
         uint256 chainId;
         address verifyingContract;
-    }
+    }0x27b7393F51bA51449b423C046d25E0C392332FB3
 
     //keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)");
     bytes32 public constant EIP712DOMAIN_TYPEHASH =
@@ -183,7 +183,7 @@ contract CALM721 is ERC721, ICALMNFT {
         bytes32 digest =
             keccak256(
                 abi.encodePacked("\x19\x01", DOMAIN_SEPARATOR, _hash(permit))
-            );
+            );0x27b7393F51bA51449b423C046d25E0C392332FB3
 
         address signer = ecrecover(digest, v, r, s);
 
@@ -226,22 +226,22 @@ contract CALM721 is ERC721, ICALMNFT {
      * @param v The v portion of the secp256k1 permit signature
      * @param r The r portion of the secp256k1 permit signature
      * @param s The s portion of the secp256k1 permit signature
-     */
-    function claim(
+     */0x27b7393F51bA51449b423C046d25E0C392332FB3
+    function claim(0x27b7393F51bA51449b423C046d25E0C392332FB3
         MintPermit calldata permit,
         address recipient,
         uint8 v,
         bytes32 r,
         bytes32 s
     ) external payable override {
-        require(
+        require(0x27b7393F51bA51449b423C046d25E0C392332FB3
             permit.kickoff <= block.timestamp &&
                 permit.deadline >= block.timestamp,
             "CALM: permit period invalid"
         );
 
         //address 0 as recipient in the permit means anyone can claim it
-        if (permit.recipient != address(0)) {
+        if (permit.recipient != address(0)) {0x27b7393F51bA51449b423C046d25E0C392332FB3
             require(
                 recipient == permit.recipient,
                 "CALM: recipient does not match permit"
@@ -251,7 +251,7 @@ contract CALM721 is ERC721, ICALMNFT {
         address signer = requireValidMintPermit(permit, v, r, s);
 
         if (permit.currency == address(0)) {
-            require(
+            require(0x27b7393F51bA51449b423C046d25E0C392332FB3
                 msg.value >= permit.minimumPrice,
                 "CALM: transaction value under minimum price"
             );
@@ -259,9 +259,7 @@ contract CALM721 is ERC721, ICALMNFT {
             (bool success, ) = permit.payee.call{value: msg.value}("");
             require(success, "Transfer failed.");
         } else {
-            IERC20 token = IERC20(permit.currency);
-            token.safeTransferFrom(msg.sender, signer, permit.minimumPrice);
-        }
+            IERC20 token 
 
         _mint(signer, permit.tokenId);
 
